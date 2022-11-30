@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>Title</title>
+</head>
+<body>
+
+<script type="module">
+import {VendingMachine} from '../dist/VendingMachine.js';
+
+const drinkMachine = new VendingMachine('drinkMachine');
+drinkMachine.addProduct( new VendingMachine.Product.Drink( '콜라', 500 ) );
+console.log(drinkMachine);
+
+</script>
+</body>
+</html>
