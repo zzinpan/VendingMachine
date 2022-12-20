@@ -1,11 +1,13 @@
 import {VendingMachine} from '../../src/VendingMachine.js';
+import {CoinInserter} from '../../src/cashMachine/CoinInserter.js';
 import {CokaCola} from './drink/CokaCola.js';
 import {CokaColaZero} from './drink/CokaColaZero.js';
 import {Cider} from './drink/Cider.js';
 import {CiderZero} from './drink/CiderZero.js';
 import {CiderStrong} from './drink/CiderStrong.js';
-import {Drink as AbstractDrink} from '../../src/product/Drink.js';
-import {ProductBuffer} from '../../src/ProductBuffer.js';
+import { Drink as AbstractDrink } from '../../src/product/Drink.js';
+import { ProductBuffer } from '../../src/ProductBuffer.js';
+import { Won } from '../../src/moneyUnit/Won.js';
 
 // 음료수 최대치
 const Constant = {
@@ -18,6 +20,9 @@ const Constant = {
 
 // 자판기 생성
 const drinkMachine = new VendingMachine( 'drinkMachine' );
+
+// 결제 방식
+drinkMachine.setCashMachine( 'coin', new CoinInserter(Won) );
 
 // 자판기 조립
 [

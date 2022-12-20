@@ -1,7 +1,8 @@
 import {IMoney} from '../IMoney.js';
 import {IMoneyUnit} from '../../moneyUnit/IMoneyUnit.js';
+import {IUseClone} from '../../IUseClone';
 
-export class Coin implements IMoney {
+export class Coin implements IMoney, IUseClone {
 
     private readonly value: number;
     private readonly moneyUnit: IMoneyUnit;
@@ -13,12 +14,16 @@ export class Coin implements IMoney {
 
     }
 
-    getMoneyUnit(): IMoneyUnit {
+    public getMoneyUnit(): IMoneyUnit {
         return this.moneyUnit;
     }
 
-    getValue(): number {
+    public getValue(): number {
         return this.value;
+    }
+
+    public clone(): Coin {
+        return new Coin( this.value, this.moneyUnit );
     }
 
 }
