@@ -10,8 +10,6 @@ const Constant = {
 
 export class CokaColaZero extends Drink {
 
-    public static NAME: string = Constant.name;
-
     constructor() {
 
         super( Constant.name, Constant.price, Won );

@@ -1,7 +1,7 @@
-import { IMoney } from "../money/IMoney";
 import { IMoneyUnit } from "../moneyUnit/IMoneyUnit";
 import { Coin } from "../money/coin/Coin";
 import { ICashMachine } from "./ICashMachine";
+import { MoneyBuffer } from "../MoneyBuffer";
 
 class CoinInserter implements ICashMachine<Coin> {
 
@@ -15,7 +15,6 @@ class CoinInserter implements ICashMachine<Coin> {
 
     public payment( money: Coin ): boolean {
 
-        // 특정 단위만 지불 가능
         return money.getMoneyUnit() === this.moneyUnit;
 
     }

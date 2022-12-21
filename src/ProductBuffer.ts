@@ -1,4 +1,4 @@
-import {IProduct} from './product/IProduct.js';
+import { IProduct } from './product/IProduct.js';
 
 export class ProductBuffer<E extends IProduct> {
 

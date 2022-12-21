@@ -1,7 +1,7 @@
 import {IMoney} from '../IMoney.js';
 import {IMoneyUnit} from '../../moneyUnit/IMoneyUnit.js';
 
-export class PaperMoney implements IMoney {
+export abstract class PaperMoney implements IMoney {
 
     private readonly value: number;
     private readonly moneyUnit: IMoneyUnit;
@@ -13,11 +13,11 @@ export class PaperMoney implements IMoney {
 
     }
 
-    getMoneyUnit(): IMoneyUnit {
+    public getMoneyUnit(): IMoneyUnit {
         return this.moneyUnit;
     }
 
-    getValue(): number {
+    public getValue(): number {
         return this.value;
     }
 
