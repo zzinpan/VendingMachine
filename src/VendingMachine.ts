@@ -1,28 +1,28 @@
-import { Util } from './Util.js';
+import { Util } from './common/Util.js';
 import { IProduct } from './product/IProduct.js';
 import { IMoney } from './money/IMoney.js';
-import { ProductBuffer } from './ProductBuffer.js';
 import { ICashMachine } from './cashMachine/ICashMachine.js';
 import { IVendingMachineAdminBehavior } from './IVendingMachineAdminBehavior.js';
-import { MoneyBuffer } from './MoneyBuffer.js';
-import { Coin } from './money/coin/Coin.js';
-import { IMoneyConstructor } from './money/IMoneyConstructor.js';
+import { Buffer } from './common/Buffer.js';
+import { Eventer } from './common/Eventer.js';
 
-export class VendingMachine {
+export class VendingMachine extends Eventer {
 
     // 자판기 식별자
     private id: string;
 
     // 자판기 열쇠
     private key: any;
-    
-    private moneyBufferMap: Map<string, MoneyBuffer<IMoney>> = new Map<string, MoneyBuffer<IMoney>>();
-    private productBufferMap: Map<string, ProductBuffer<IProduct>> = new Map<string, ProductBuffer<IProduct>>();
+
+    private moneyBufferMap: Map<string, Buffer<IMoney>> = new Map<string, Buffer<IMoney>>();
+    private productBufferMap: Map<string, Buffer<IProduct>> = new Map<string, Buffer<IProduct>>();
     private cashMachineMap: Map<string, ICashMachine<IMoney>> = new Map<string, ICashMachine<IMoney>>();
+    
     private adminBehavior: IVendingMachineAdminBehavior | null = null;
 
     constructor( id: string = Util.createRandomId(), key: any ) {
 
+        super();
         this.id = id;
         this.key = key;
 
@@ -63,33 +63,11 @@ export class VendingMachine {
                     return self.cashMachineMap;
                 },
 
-                getCashMachine( IMoney: IMoneyConstructor ): MoneyBuffer<IMoney> | undefined {
-                    
-                    return self.moneyBufferMap.get( IMoney.name );
-                    
+                getMoneyBufferMap(): Map<string, Buffer<IMoney>> {
+                    return self.moneyBufferMap;
                 },
 
-                setCashMachine <T extends IMoney>( cashMacine: ICashMachine<T> ): IVendingMachineAdminBehavior {
-                    
-                    self.cashMachineMap.set( T.name, cashMacine );
-                    return this;
-
-                },
-
-                getMoneyBuffer( IMoney: IMoneyConstructor ): MoneyBuffer<IMoney> | undefined {
-                    
-                    return self.moneyBufferMap.get( IMoney.name );
-                    
-                },
-
-                setMoneyBuffer( IMoney: IMoneyConstructor ): IVendingMachineAdminBehavior {
-                    
-                    self.moneyBufferMap.set( IMoney.name, new MoneyBuffer<IMoney>() );
-                    return this;
-
-                },
-
-                getProductBufferMap(): Map<string, ProductBuffer<IProduct>> {
+                getProductBufferMap(): Map<string, Buffer<IProduct>> {
                     return self.productBufferMap;
                 }
     
@@ -121,7 +99,7 @@ export class VendingMachine {
 
     public close( key: any ): boolean {
 
-        // 이미 닫혀있음
+        // 이미 닫혀있음 
         if( this.adminBehavior === null ){
             return true;
         }

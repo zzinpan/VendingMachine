@@ -6,12 +6,11 @@ import { Cider } from './drink/Cider.js';
 import { CiderZero } from './drink/CiderZero.js';
 import { CiderStrong } from './drink/CiderStrong.js';
 import { Drink as AbstractDrink } from '../../src/product/Drink.js';
-import { ProductBuffer } from '../../src/ProductBuffer.js';
+import { Buffer } from '../../src/common/Buffer.js';
 import { Won } from '../../src/moneyUnit/Won.js';
 import { Won100 } from '../../src/money/coin/won/Won100.js';
 import { IVendingMachineAdminBehavior } from '../../src/IVendingMachineAdminBehavior.js';
 import { Won500 } from '../../src/money/coin/won/Won500.js';
-import { MoneyBuffer } from '../../src/MoneyBuffer.js';
 import { Coin } from '../../src/money/coin/Coin.js';
 
 // 음료수 최대치
@@ -62,17 +61,18 @@ const productBufferMap = adminBehavior.getProductBufferMap();
 ].forEach(( Drink ) => {
 
     // 버퍼 조립
-    const drinkBuffer = new ProductBuffer<AbstractDrink>( Constant.config.drinkMaxCount );
+    const drinkBuffer = new Buffer<AbstractDrink>( Constant.config.drinkMaxCount );
     productBufferMap.set( Drink.name, drinkBuffer );
 
     // 음료수 채우기
     for( let i=0; i<Constant.config.drinkMaxCount; i=i+1 ){
-        drinkBuffer.addProduct( new Drink() );
+        drinkBuffer.push( new Drink() );
     }
 
 });
 
-// 여분 돈 추가
+
+// 동전 버퍼 조립
 const moneyBufferMap = adminBehavior.getMoneyBufferMap();
 [
 
@@ -82,16 +82,16 @@ const moneyBufferMap = adminBehavior.getMoneyBufferMap();
 ].forEach(( Won ) => {
 
     // 버퍼 조립
-    const moneyBuffer = new MoneyBuffer<Coin>();
-    adminBehavior.setMoneyBuffer( Won );
-    adminBehavior.
+    const moneyBuffer = new Buffer<Coin>(Infinity);
     moneyBufferMap.set( Won.name, moneyBuffer );
 
     // 동전 채우기
     for( let i=0; i<Constant.config.coinMaxCount; i=i+1 ){
-        moneyBuffer.addMoney( new Won() );
+        moneyBuffer.push( new Won() );
     }
 
 });
+
+
 
 console.log( drinkMachine );

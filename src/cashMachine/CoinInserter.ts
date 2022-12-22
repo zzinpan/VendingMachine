@@ -1,7 +1,6 @@
 import { IMoneyUnit } from "../moneyUnit/IMoneyUnit";
 import { Coin } from "../money/coin/Coin";
 import { ICashMachine } from "./ICashMachine";
-import { MoneyBuffer } from "../MoneyBuffer";
 
 class CoinInserter implements ICashMachine<Coin> {
 
