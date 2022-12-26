@@ -1,6 +1,6 @@
 import {IMoney} from '../IMoney.js';
 import {IMoneyUnit} from '../../moneyUnit/IMoneyUnit.js';
-import {IUseClone} from '../../IUseClone';
+import {IUseClone} from '../../common/IUseClone';
 
 export class Coin implements IMoney, IUseClone {
 

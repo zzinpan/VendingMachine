@@ -5,7 +5,7 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "test": "ts-node --project ./tsconfig.json --esm './sample/typescript/index.ts'",
+    "test": "ts-node --project ./tsconfig.json --esm './sample/typescript/user.ts'",
     "build": "tsc --watch"
   },
   "author": "",

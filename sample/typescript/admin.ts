@@ -44,10 +44,6 @@ const adminBehavior = drinkMachine.open( adminKey ) as IVendingMachineAdminBehav
  */
 
 
-// 동전투입기 조립
-const cashMachineMap = adminBehavior.getCashMachineMap();
-cashMachineMap.set( 'coin', new CoinInserter(Won) );
-
 // 음료수 버퍼 조립
 const productBufferMap = adminBehavior.getProductBufferMap();
 [
@@ -71,27 +67,32 @@ const productBufferMap = adminBehavior.getProductBufferMap();
 
 });
 
+// 동전 생성자 목록
+const coinConstructors = [ Won100, Won500 ];
+
+// 동전투입기 조립
+const coinInserter = new CoinInserter( ...coinConstructors );
+const cashMachineMap = adminBehavior.getCashMachineMap();
+cashMachineMap.set( 'coin', coinInserter );
+
 
 // 동전 버퍼 조립
 const moneyBufferMap = adminBehavior.getMoneyBufferMap();
-[
-
-    Won100,
-    Won500
-
-].forEach(( Won ) => {
+coinConstructors.forEach(( CoinConstructor ) => {
 
     // 버퍼 조립
-    const moneyBuffer = new Buffer<Coin>(Infinity);
-    moneyBufferMap.set( Won.name, moneyBuffer );
+    const moneyBuffer = new Buffer<Coin>(Constant.config.coinMaxCount);
+    moneyBufferMap.set( CoinConstructor.name, moneyBuffer );
 
     // 동전 채우기
     for( let i=0; i<Constant.config.coinMaxCount; i=i+1 ){
-        moneyBuffer.push( new Won() );
+        moneyBuffer.push( new CoinConstructor() );
     }
 
+    // 동전투입기와 버퍼 연결
+    coinInserter.setBuffer( CoinConstructor.name, CoinConstructor, moneyBuffer );
+
 });
+drinkMachine.close( adminKey );
 
-
-
-console.log( drinkMachine );
+export {drinkMachine};

@@ -2,7 +2,6 @@ import { IMoney } from "./money/IMoney";
 import { ICashMachine } from "./cashMachine/ICashMachine";
 import { Buffer } from "./common/Buffer";
 import { IProduct } from "./product/IProduct";
-import { IMoneyConstructor } from "./money/IMoneyConstructor";
 
 export interface IVendingMachineAdminBehavior {
 

@@ -10,14 +10,14 @@ export class Buffer<E> {
     }
 
     // 꼬리에 넣기
-    public push( product: E ): this {
+    public push( product: E ): boolean {
 
         if( this.maxCount <= this.items.length ){
-            return this;
+            return false;
         }
 
         this.items.push( product );
-        return this;
+        return true;
 
     }
 
@@ -36,14 +36,14 @@ export class Buffer<E> {
     }
 
     // 머리에 넣기
-    public unshift( product: E ): this {
+    public unshift( product: E ): boolean {
 
         if( this.maxCount <= this.items.length ){
-            return this;
+            return false;
         }
 
         this.items.unshift( product );
-        return this;
+        return true;
 
     }
 

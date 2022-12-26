@@ -52,7 +52,7 @@ export class Eventer {
 
     }
 
-    public trigger( eventName: string, ...args: Array<any> ): this {
+    protected trigger( eventName: string, ...args: Array<any> ): this {
 
         const eventListeners = this.eventListenerMap.get( eventName );
         if( eventListeners === undefined ){
